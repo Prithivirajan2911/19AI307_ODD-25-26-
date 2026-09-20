@@ -1,23 +1,35 @@
-# Ex.No:3(E) INNER CLASS
-
+# Ex.No:3(D)    INTERFACE 
 
 ## QUESTION:
-Write a Java program to create an inner class and access it from the outer class.
+You are programming bots that analyze weather data. Each bot must implement a common interface and give a prediction.
+
+
+ Bot Types:
+
+SunBot: Predicts "HOT" if temperature > 30, else "MODERATE".
+
+RainBot: Predicts "COLD" if temperature < 20, else "WARM".
+
+Input:
+
+temperature
+botType (1 for SunBot, 2 for RainBot)Output:
+Prediction as a string.
 
 ## AIM:
-To demonstrate accessing an inner class from an outer class in Java.
+To implement weather prediction using interfaces with two bots — SunBot and RainBot.
 
 ## ALGORITHM :
-1.	Create an outer class with a private variable.
-2.	Define an inner class inside it with a method to access the outer variable.
-3.	In main(), create an object of the outer class.
-4.	Use it to create an object of the inner class.
-5.	Call the inner class method.
+1.	Create WeatherBot interface with predict() method.
+2.	Implement SunBot and RainBot classes with different prediction logic.
+3.	Take temperature and botType as input.
+4.	Use the chosen bot to call predict().
+5.	Display the prediction.
 
 ## PROGRAM:
  ```
 /*
-Program to implement a InnerClass using Java
+Program to implement a Interface using Java
 Developed by: Prithivirajan V
 Register Number: 212223100042
 */
@@ -27,40 +39,52 @@ Register Number: 212223100042
 ```
 import java.util.Scanner;
 
-class OuterClass {
-    String name;
+interface WeatherBot {
+    String predict(int temperature);
+}
 
-    OuterClass(String name) {
-        this.name = name;
+class SunBot implements WeatherBot {
+    public String predict(int temperature) {
+        if (temperature > 30) {
+            return "HOT";
+        } else {
+            return "MODERATE";
+        }
     }
+}
 
-    void display() {
-        InnerClass inner = new InnerClass();
-        inner.showMessage();
-    }
-
-    class InnerClass {
-        void showMessage() {
-            System.out.println("Hello, " + name + "! This message is from the Inner Class.");
+class RainBot implements WeatherBot {
+    public String predict(int temperature) {
+        if (temperature < 20) {
+            return "COLD";
+        } else {
+            return "WARM";
         }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("");
-        String input = scanner.next();
-        scanner.close();
+        Scanner sc = new Scanner(System.in);
+        int temperature = sc.nextInt();
+        int botType = sc.nextInt();
+        WeatherBot bot;
 
-        OuterClass outer = new OuterClass(input);
-        outer.display();
+        if (botType == 1) {
+            bot = new SunBot();
+        } else {
+            bot = new RainBot();
+        }
+
+        System.out.println(bot.predict(temperature));
+        sc.close();
     }
 }
 ```
 
 ## OUTPUT:
-<img width="1151" height="235" alt="image" src="https://github.com/user-attachments/assets/420f7586-a32e-4a77-88ad-2b8630fa14f6" />
+<img width="532" height="165" alt="image" src="https://github.com/user-attachments/assets/0fade79d-3a7c-4877-a1c4-85f505bff6b0" />
+
 
 ## RESULT:
-The program successfully accesses and prints data from the inner class using the outer class.
+The program predicts weather conditions using interface implementation and method overriding.
